@@ -10,7 +10,7 @@ The purpose of this repo is to propose a **step-by-step and script automating th
 
 A simplified distro instance creation scenario:
 
-```
+```text
 #1: C:\WSL_INSTANCES\wsl.exe --import MYTESTDISTRO C:\WSL_INSTANCES\MYTESTDISTROFOLDER C:\WSL_DISTRO_REPOSITORY\ubuntu_18_04\install.tar.gz
 #2: C:\WSL_INSTANCES\wsl.exe --distribution MYTESTDISTRO
 #3: root@YOURHOSTPCNAME:/mnt/C/WSL_INSTANCES# ./initialize-distribution.sh
@@ -22,8 +22,8 @@ A simplified distro instance creation scenario:
 
 You may then (re-)start the created distro instance from any Windows 10 (PowerShell/Cmd/Terminal) terminal window and from within any directory. E.g.
 
-```
-C:\wsl.exe --distribution MYTESTDISTRO
+```text
+C:\Users\maestro>wsl.exe --distribution MYTESTDISTRO
 ```
 
 ## Detailled Step-By-Step 
@@ -46,7 +46,7 @@ C:\wsl.exe --distribution MYTESTDISTRO
    
    The following structure is used for this step-by-step:
    
-   ```
+   ```text
    D:\WSL\_repository\ubuntu_18_04/                    # Folder containing an unpacked Distro
    D:\WSL\_repository\ubuntu_20_04/                    # Folder containing an unpacked Distro  
    D:\WSL\_repository\Ubuntu_1804.2019.522.0_x64.appx  # Distro File
@@ -57,22 +57,22 @@ C:\wsl.exe --distribution MYTESTDISTRO
 
     For **each instance** of a distribution you'd like to run, you need to import the package installation file and register it, according to the following template:
 
-    ```cmd
-    wsl --import MYTESTDISTRO D:\WSL\MYTESTDISTROFOLDER D:\WSL\_repository\ubuntu_18_04\install.tar.gz
+    ```text
+    D:\WSL\wsl.exe --import MYTESTDISTRO D:\WSL\MYTESTDISTROFOLDER D:\WSL\_repository\ubuntu_18_04\install.tar.gz
     ```
     
     where `MYTESTDISTRO` and `MYTESTDISTROFOLDER` should be replace as needed.
     
     Check if the import was successfull using:
     
-    ```cmd
-    wsl -l -v
+    ```text
+    D:\WSL\wsl.exe -l -v
     ```
     
     The Output should look like
     
-    ```    
-    D:\WSL\wsl -l -v
+    ```text
+    D:\WSL\wsl.exe -l -v
       NAME                   STATE           VERSION
     * Ubuntu1804-001         Stopped         2
       Ubuntu1804-002         Stopped         2
@@ -97,13 +97,13 @@ You need to setup and configure each instance of a distros you'd like to use, he
 
     Start the distribution instance using the following command:
     
-    ```cmd
-    wsl --distribution MYTESTDISTRO
+    ```text
+    D:\WSL\wsl.exe --distribution MYTESTDISTRO
     ```   
 
     Once the shell prompt of the distro instance is visible, run the initialization script (this make take a while to complete):
     
-    ```bash
+    ```shell
     root@YOURHOSTPCNAME:/mnt/d/WSL# ./initialize-distribution.sh
     ``` 
     
@@ -115,23 +115,23 @@ You need to setup and configure each instance of a distros you'd like to use, he
     
     After the setup procedure has been completed, you'd **exit the distro instance** using `exit` and **restart** it in order to apply all the configuration implemented by the initialization script:
     
-    ```cmd
+    ```text
     root@YOURHOSTPCNAME:/mnt/d/WSL# exit
     
-    D:\WSL\wsl --terminate MYTESTDISTRO
-    D:\WSL\wsl --distribution MYTESTDISTRO
+    D:\WSL\wsl.exe --terminate MYTESTDISTRO
+    D:\WSL\wsl.exe --distribution MYTESTDISTRO
     ```
     
     or
 
-    ```cmd
-    wsl --shutdown
-    wsl --distribution MYTESTDISTRO
+    ```text
+    D:\WSL\wsl.exe --shutdown
+    D:\WSL\wsl.exe --distribution MYTESTDISTRO
     ```
 
     Note: when restarted, the distro instance should already use the newly created user. This should look like:
     
-    ```bash
+    ```shell
     ========================================
      MYTESTDISTRO - Ubuntu 20.04.2 LTS
     ========================================
@@ -153,13 +153,13 @@ To modifiy the appearance accordingly, some lines of code need to be modified in
 
 To load the file in an editor:
 
-```bash
+```shell
 sensei@YOURHOSTPCNAME: ~$ sudo nano ~/.bashrc
 ```
 
 Edit the content of this file as specified by the `# ***************** MODIFICATION *****************` comments in below code template (4 modifications in total):
 
-```bash
+```shell
 ...
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -207,13 +207,13 @@ As before: to ensure the changes have been applied, you'd exit and restart the d
     
 ### Start to use a distro instance
 
-```cmd
+```text
 wsl --distribution MYTESTDISTRO
 ```
 
 ### Unregister a distro instance
 
-```cmd
+```text
 wsl --unregister MYTESTDISTRO
 ```
 
@@ -223,13 +223,13 @@ you may then delete the directory containing or safely backup the distro instanc
 
 From a windows *terminal window* (PowerShell/Cmd/Terminal), you can use the "WSL" CLI to export a (compressed) distro instance. This exported instance may then be reused as a source to create a new instance of the exported distro. It is also suitable for sharing prepared i.e pre-configured distro instances e.g. within a development team etc.
 
-To export i.e. backup any distro instance, the template `wsl --export <NAME-OF_THE_DISTRO_INSTANCE> <NAME-OF_THE-BACKUP-TAR-FILE>` should be used. E.g.:
+To export i.e. backup any distro instance, the template `wsl --export <NAME-OF-THE-DISTRO-INSTANCE> <PATH-TO-AND-NAME-OF-THE-BACKUP-TAR-FILE>` should be used. E.g.:
 
-```bash
-MYTESTDISTRO(sensei) ~$ wsl --export MYTESTDISTRO D:\WSL\MYTESTDISTRO-BACKUP-001.tar
+```text
+wsl --export MYTESTDISTRO MYTESTDISTRO-BACKUP-001.tar
 ```
 
-Note: WSL wil *automatically terminate the instance if it is running*. Hence, it is recommanded to close all connections to i.e. to **terminate the instance before exporting it**.
+**Important**: WSL will *automatically terminate the instance if it is still running*! Hence, it is recommanded to close all connections to i.e. to **terminate the instance before exporting it**.
 
 ## Ressources
 
