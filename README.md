@@ -231,10 +231,12 @@ wsl --export MYTESTDISTRO MYTESTDISTRO-BACKUP-001.tar
 
 **Important**: WSL will *automatically terminate the instance if it is still running*! Hence, it is recommanded to close all connections to i.e. to **terminate the instance before exporting it**.
 
+## License
+
+This project is licensed under the terms of the MIT license.
+
 ## Ressources
 
-https://docs.microsoft.com/en-us/windows/wsl/use-custom-distro
-
-https://www.hardtechnology.net/2020/09/19/wslcomplete.html
-
-https://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
+- [use any Linux distribution inside of the Windows Subsystem for Linux (WSL) (Microsoft official documentation)](https://docs.microsoft.com/en-us/windows/wsl/use-custom-distro)
+- [Guide to setting up WSL 2 with Multiple Identical Linux Distributions](https://www.hardtechnology.net/2020/09/19/wslcomplete.html)
+- [How to Change / Set up bash custom prompt (PS1) in Linux](https://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html)
