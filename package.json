@@ -1,0 +1,26 @@
+{
+  "name": "@khatastroffik/wsl2-multi-distro",
+  "version": "1.0.0",
+  "description": "A script and some instruction to ease installation of multiple linux distributions on windows WSL2",
+  "repository": {
+    "url": "https://github.com/khatastroffik/wsl2-multi-distro.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/khatastroffik/wsl2-multi-distro/issues"
+  },
+  "keywords": [
+    "WSL2",
+    "Linux",
+    "distro",
+    "distribution",
+    "installation",
+    "shell"
+  ],
+  "author": {
+    "name": "Loïs Bégué",
+    "url": "https://www.khatastroffik.net"
+  },
+  "homepage": "https://www.khatastroffik.net",
+  "license": "MIT"
+}
