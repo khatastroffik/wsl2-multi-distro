@@ -30,6 +30,8 @@ C:\Users\maestro>wsl.exe --distribution MYTESTDISTRO
 
 ### Prepare the distribution(s)
 
+#### Manually retrieving and installing a distro from the *Microsoft repository*
+
 1. **Download** the distro package(s) you'd like to run in WSL2.
 
     Select/download the package(s) of your choice from the microsoft repository:
@@ -95,7 +97,25 @@ You can retrieve distributions from the windows apps store i.e. use the package 
 
 Windows apps store creates apps folders under `c:\program files\WindowsApps\`. You may need to grant your user READ rights on this folder in order to access its content.
 
-Once you have located the correct distro folder (it should contain a `install.tar.gz` file), copy the content of the folder to your distro repository e.g. `D:\WSL\_repository\ubuntu_20_04/` and proceed with the **integrate** step as described above.
+Once you have located the correct distro folder (it should contain a `install.tar.gz` file), copy the content of the folder to your distro repository e.g. `D:\WSL\_repository\ubuntu_20_04/` and proceed with the **integrate** step described above.
+
+
+#### Installing Ubuntu on WSL via *rootfs*
+
+Ubuntu WSL distribution **rootfs** daily builds are available for download:
+
+- Ubuntu [16.04](https://cloud-images.ubuntu.com/xenial/current/) LTS (Xenial)
+- Ubuntu [18.04](https://cloud-images.ubuntu.com/bionic/current/) LTS (Bionic)
+- Ubuntu [20.04](https://cloud-images.ubuntu.com/focal/current/) LTS (Focal) 
+- ...
+
+They can be installed using the wsl command `wsl --import <DistributionName> <InstallLocation> <FileName>` e.g.
+
+```shell
+$ wsl --import MYDISTRO C:\WSL\MYDISTRO D:\WSL\_repository\focal-server-cloudimg-amd64-wsl.rootfs.tar.gz
+```
+
+then proceed with the **initialisation script** step described above.
 
 ### Setup the distro instance
 
