@@ -89,6 +89,14 @@ C:\Users\maestro>wsl.exe --distribution MYTESTDISTRO
     
     Note: The **name of the created user** can be modified in the script directly.
     
+#### Retrieve distribution packages from the windows apps store
+
+You can retrieve distributions from the windows apps store i.e. use the package locally downloaded when installing a distro app from the windows apps store.
+
+Windows apps store creates apps folders under `c:\program files\WindowsApps\`. You may need to grant your user READ rights on this folder in order to access its content.
+
+Once you have located the correct distro folder (it should contain a `install.tar.gz` file), copy the content of the folder to your distro repository e.g. `D:\WSL\_repository\ubuntu_20_04/` and proceed with the **integrate** step as described above.
+
 ### Setup the distro instance
 
 You need to setup and configure each instance of a distros you'd like to use, hence to repeat the following operations for each new/independent instance.
@@ -136,9 +144,6 @@ You need to setup and configure each instance of a distros you'd like to use, he
      MYTESTDISTRO - Ubuntu 20.04.2 LTS
     ========================================
 
-    Starting the postgreSQL service...
-    [sudo] password for sensei:
-     * Starting PostgreSQL 12 database server                                                                                                                                         [ OK ] testdistro(sensei) ~$    
     sensei@YOURHOSTPCNAME: ~$
     ```
 
@@ -168,6 +173,11 @@ Edit the content of this file as specified by the `# ***************** MODIFICAT
 # ***************** MODIFICATION *****************
 force_color_prompt=yes
 
+# ***************** MODIFICATION *****************
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
+}
+
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have color support; assume it's compliant with Ecma-48
@@ -181,10 +191,10 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # ***************** MODIFICATION *****************
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]$WSL_DISTRO_NAME\[\033[00m\](\[\033[01;32m\]\u\[\033[00m\]) \[\033[01;36m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]$WSL_DISTRO_NAME \[\033[01;32m\](\u)\[\e[91m\]$(parse_git_branch)\n\[\033[01;36m\]\w\[\033[00m\] \$ '
 else
     # ***************** MODIFICATION *****************
-    PS1='${debian_chroot:+($debian_chroot)}$WSL_DISTRO_NAME(\u) \w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}$WSL_DISTRO_NAME (\u)$(parse_git_branch)\n\w \$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -192,12 +202,11 @@ unset color_prompt force_color_prompt
 case "$TERM" in
 xterm*|rxvt*)
     # ***************** MODIFICATION *****************
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}$WSL_DISTRO_NAME (\u) \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}$WSL_DISTRO_NAME (\u)$(parse_git_branch)\n\w \a\]$PS1"
     ;;
 *)
     ;;
 esac
-
 ...
 ```
 
